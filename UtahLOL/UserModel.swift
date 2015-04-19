@@ -10,8 +10,12 @@ import Parse
 
 class UserModel: NSObject {
     
+    // [lotId:timestamp]
+    var recentParkedLots: [String:UInt] = [String: UInt]()
+    var recentLeftLots: [String:UInt]   = [String: UInt]()
+    
     var userName: String!
-        {
+    {
             return PFUser.currentUser().username
     }
     

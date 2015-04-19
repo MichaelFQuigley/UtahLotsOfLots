@@ -23,6 +23,7 @@ class UtahLOLTests: XCTestCase {
     
     func testExample() {
         // This is an example of a functional test case.
+        println("here")
         XCTAssert(true, "Pass")
     }
     

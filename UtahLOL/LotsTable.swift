@@ -12,16 +12,45 @@ class LotsTable: UIViewController, UITableViewDelegate, UITableViewDataSource {
     private var _lotsTableView: UITableView?
     private var _primaryLotType: LotData.PrimaryLotTag?
     private var _secondaryLotType: LotData.SecondaryButtonTag?
-    
+    private var _locationTracker: LocationTracker?
     private var _lots: [LotData] = []
     
     private var _currOffset: Int = 0
     private let _lotsLimit: Int  = 15
     
-    init(primaryLotType: LotData.PrimaryLotTag, secondaryLotType: LotData.SecondaryButtonTag)
+    init(primaryLotType: LotData.PrimaryLotTag, secondaryLotType: LotData.SecondaryButtonTag, locationTracker: LocationTracker)
     {
         super.init()
         
+        _locationTracker = locationTracker
+        
+        var titleString: String = ""
+        
+        switch(secondaryLotType)
+        {
+            case .AnyButton:
+                titleString += "Any"
+            case .EmptiestButton:
+                titleString += "Emptiest"
+            case .NearestButton:
+                titleString += "Nearest"
+            default:
+                titleString += ""
+        }
+        
+        switch(primaryLotType)
+        {
+            case .aLot:
+                titleString += " A Lots"
+            case .uLot:
+                titleString += " U Lots"
+            case .eLot:
+                titleString += " E Lots"
+            default:
+                titleString += " Lots"
+        }
+        
+        self.title = titleString
         _primaryLotType   = primaryLotType
         _secondaryLotType = secondaryLotType
     }
@@ -50,11 +79,34 @@ class LotsTable: UIViewController, UITableViewDelegate, UITableViewDataSource {
         
         view.addSubview(_lotsTableView!)
         
-        LotsManager.getAllLotsOfType(_primaryLotType!, secondaryType: _secondaryLotType!, offset: _currOffset, number: _lotsLimit) { (lots) -> Void in
-            self._lots = lots
-            dispatch_async(dispatch_get_main_queue(),{
-                self._lotsTableView?.reloadData()
-                return
+        if _secondaryLotType == LotData.SecondaryButtonTag.AnyButton
+        {
+            LotsManager.getAllLotsOfType(_primaryLotType!, offset: _currOffset, number: _lotsLimit) { (lots) -> Void in
+                self._lots = lots
+                dispatch_async(dispatch_get_main_queue(),{
+                    self._lotsTableView?.reloadData()
+                    return
+                })
+            }
+        }
+        else if _secondaryLotType == LotData.SecondaryButtonTag.EmptiestButton
+        {
+            LotsManager.getEmptiestLotsOfType(_primaryLotType!, offset: _currOffset, number: _lotsLimit, completion: { (lots) -> Void in
+                self._lots = lots
+                dispatch_async(dispatch_get_main_queue(),{
+                    self._lotsTableView?.reloadData()
+                    return
+                })
+            })
+        }
+        else if _secondaryLotType == LotData.SecondaryButtonTag.NearestButton
+        {
+            LotsManager.getNearestLotsOfType(_primaryLotType!, location: _locationTracker!.latestLocation, offset: _currOffset, number: _lotsLimit, completion: { (lots) -> Void in
+                self._lots = lots
+                dispatch_async(dispatch_get_main_queue(),{
+                    self._lotsTableView?.reloadData()
+                    return
+                })
             })
         }
     }
@@ -88,7 +140,7 @@ class LotsTable: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        
+        tableView.deselectRowAtIndexPath(indexPath, animated: false)
     }
     
     
@@ -103,4 +155,7 @@ class LotsTable: UIViewController, UITableViewDelegate, UITableViewDataSource {
         return _lots.count
     }
     
+    override func viewWillDisappear(animated: Bool) {
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
+    }
 }

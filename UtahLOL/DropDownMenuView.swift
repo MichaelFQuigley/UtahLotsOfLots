@@ -80,6 +80,7 @@ class DropDownMenuView: UIView {
         _primaryButton.backgroundColor = _color
         _primaryButton.setTitle(_name, forState: UIControlState.Normal)
         _primaryButton.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
+        _primaryButton.titleLabel?.font = UIFont(name: AppUtil.themeFont, size: 32.0)
         _primaryButton.addTarget(self, action: "primaryButtonPressed", forControlEvents: UIControlEvents.TouchDown)
         _primaryButton.layer.borderWidth   = 3.0
         _primaryButton.layer.borderColor   = UIColor.grayColor().CGColor
@@ -108,6 +109,7 @@ class DropDownMenuView: UIView {
             tempButton.layer.cornerRadius  = 8.0
             tempButton.layer.masksToBounds = true
             tempButton.hidden              = true
+            tempButton.titleLabel?.font    = UIFont(name: AppUtil.themeFont, size: 20.0)
             tempButton.addTarget(self, action: "secondaryButtonPressed:", forControlEvents: UIControlEvents.TouchDown)
             
             cursor.y += tempButton.frame.height

@@ -7,14 +7,20 @@
 //
 
 import UIKit
+import CoreLocation
 
 class LotData: NSObject {
     
     var name: String?
     var address: String?
+    var lotId: String?
     var lotStatus: LotStatus?
     var lotTypeFlags: Int = 0
-    
+    var parkedTimes: [UInt] = []
+    var leftTimes:   [UInt] = []
+    var lotRegion: CLCircularRegion = CLCircularRegion(center: CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0),
+                                                        radius: 0.0,
+                                                        identifier: "")
     enum PrimaryLotTag: Int
     {
         case aLot = 1, eLot = 2, allLot = 4, uLot = 8

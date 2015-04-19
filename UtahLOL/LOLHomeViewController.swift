@@ -14,12 +14,15 @@ class LOLHomeViewController: UIViewController, DropDownMenuViewDelegate {
     private var _aLotsElement: DropDownMenuView?
     private var _eLotsElement: DropDownMenuView?
     private var _uLotsElement: DropDownMenuView?
-    
+    var locationTracker: LocationTracker?
     //vertical margin between buttons
     private var vMargin: CGFloat = 0.0
     private var secondaryButtonHeight: CGFloat = 0.0
     private var primaryButtonHeight: CGFloat   = 0.0
     override func viewDidLoad() {
+        
+        locationTracker = LocationTracker()
+        
         view.backgroundColor = UIColor(red: 0.8, green: 0.8, blue: 0.8, alpha: 1.0)
         vMargin               = self.view.frame.height / 36.0
         primaryButtonHeight   = self.view.frame.height / 8.0
@@ -175,8 +178,8 @@ class LOLHomeViewController: UIViewController, DropDownMenuViewDelegate {
         
         secondaryLotTag = button
         
-        var lotsTable = LotsTable(primaryLotType: primaryLotTag!, secondaryLotType: secondaryLotTag!)
-        
+        var lotsTable = LotsTable(primaryLotType: primaryLotTag!, secondaryLotType: secondaryLotTag!, locationTracker: locationTracker!)
+
         navigationController?.pushViewController(lotsTable, animated: false)
     }
 }
