@@ -21,7 +21,7 @@ class LogInPage: UIViewController, UITextFieldDelegate, SignUpPageDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         view.backgroundColor = UIColor.grayColor()
         
         let fieldHeight:  CGFloat = self.view.frame.height / 12.0

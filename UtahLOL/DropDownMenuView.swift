@@ -27,7 +27,7 @@ class DropDownMenuView: UIView {
     private var _primaryButtonHeight: CGFloat   = 0.0
     private var _secondaryButtonHeight: CGFloat = 0.0
     private var _droppedDown: Bool              = false
-    
+    private var _secondaryButtonColor: UIColor  = UIColor.grayColor()
     
     
     
@@ -49,6 +49,24 @@ class DropDownMenuView: UIView {
     
     
     var droppedDown: Bool{return _droppedDown}
+    
+    
+    
+    var secondaryButtonsColor: UIColor
+    {
+        get{return _secondaryButtonColor}
+        set
+        {
+            _secondaryButtonColor = newValue
+        }
+    }
+    
+    
+    
+    var color: UIColor
+    {
+        return _color
+    }
     
     
     
@@ -103,7 +121,7 @@ class DropDownMenuView: UIView {
         {
             var tempButton = UIButton()
             tempButton.frame = CGRectMake(cursor.x + leftMargin, cursor.y, frame.width - leftMargin, _secondaryButtonHeight)
-            tempButton.backgroundColor = UIColor.grayColor()
+            tempButton.backgroundColor     = _secondaryButtonColor
             tempButton.layer.borderWidth   = 3.0
             tempButton.layer.borderColor   = UIColor(red: 0.8, green: 0.8, blue: 0.8, alpha: 1.0).CGColor
             tempButton.layer.cornerRadius  = 8.0

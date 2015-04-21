@@ -21,7 +21,7 @@ protocol LocationTrackerDelegate: class
 
 class LocationTracker: NSObject, CLLocationManagerDelegate {
     weak var delegate: LocationTrackerDelegate? = nil
-    var locationManager: CLLocationManagerSimulator?
+    var locationManager: CLLocationManager?
     private var _latestLocation: CLLocation = CLLocation(latitude: 0.0, longitude: 0.0)
     
     var latestLocation: CLLocation{return _latestLocation}
@@ -52,7 +52,7 @@ class LocationTracker: NSObject, CLLocationManagerDelegate {
     override init()
     {
         super.init()
-        locationManager = CLLocationManagerSimulator()
+        locationManager = CLLocationManager()
         locationManager?.delegate        = self
         locationManager?.desiredAccuracy = kCLLocationAccuracyBest
         locationManager?.requestAlwaysAuthorization()
@@ -84,9 +84,10 @@ class LocationTracker: NSObject, CLLocationManagerDelegate {
         {
             _lastUpdatedTimestamp = _latestLocation.timestamp.timeIntervalSince1970
             currentVelocityQueue.enqueue(metersPerSecToMPH(_latestLocation.speed))
+            /*
             println(currentVelocityQueue.items)
             println(_latestLocation.coordinate.latitude)
-            println(_latestLocation.coordinate.longitude)
+            println(_latestLocation.coordinate.longitude)*/
         }
     }
     

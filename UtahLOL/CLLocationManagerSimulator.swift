@@ -27,8 +27,8 @@ class CLLocationManagerSimulator: NSObject {
     override init()
     {
         super.init()
-        locationsArray = createLocArrayFromCoord(CLLocationCoordinate2D(latitude: 40.75964, longitude: -111.851129)) //StadiumLot
-      //  locationsArray = createLocArrayFromCoord(CLLocationCoordinate2D(latitude: 40.770102, longitude: -111.846256)) //MEBLot
+      //  locationsArray = createLocArrayFromCoord(CLLocationCoordinate2D(latitude: 40.75964, longitude: -111.851129)) //StadiumLot
+        locationsArray = createLotLeftArrayFromCoord(CLLocationCoordinate2D(latitude: 40.770102, longitude: -111.846256)) //MEBLot
     }
     
 
@@ -39,12 +39,35 @@ class CLLocationManagerSimulator: NSObject {
     }
     
     
+    func createLotLeftArrayFromCoord(coord: CLLocationCoordinate2D) -> [(location: CLLocationCoordinate2D, numPoints: Double)]
+    {
+        var numPoints: Int = 300
+        var lowLonCoord = LocationPathCreator.lonCoordforSpeed(coord.latitude,
+                                                        lon_deg: coord.longitude,
+                                                        speed_mph: 20.0,
+                                                        timerInterval: _timerInterval,
+                                                        numPoints: numPoints,
+                                                        higherCoord: false)
+        var highLonCoord = LocationPathCreator.lonCoordforSpeed(coord.latitude,
+                                                        lon_deg: coord.longitude,
+                                                        speed_mph: 7.0,
+                                                        timerInterval: _timerInterval,
+                                                        numPoints: numPoints,
+                                                        higherCoord: true)
+        //coord.longitude - 0.001
+        return [
+            (location: CLLocationCoordinate2D(latitude: coord.latitude - 0.00000001, longitude: lowLonCoord), numPoints: Double(numPoints)),
+            (location: CLLocationCoordinate2D(latitude: coord.latitude, longitude: coord.longitude), numPoints: Double(numPoints)),
+            (location: CLLocationCoordinate2D(latitude: coord.latitude + 0.001, longitude: highLonCoord), numPoints: 100.0),
+        ]
+    }
     
-    func createLocArrayFromCoord(coord: CLLocationCoordinate2D) -> [(location: CLLocationCoordinate2D, numPoints: Double)]
+    
+    func createLotVisitedArrayFromCoord(coord: CLLocationCoordinate2D) -> [(location: CLLocationCoordinate2D, numPoints: Double)]
     {
         return [
             (location: CLLocationCoordinate2D(latitude: coord.latitude - 0.001, longitude: coord.longitude - 0.0013), numPoints: 100.0),
-            (location: CLLocationCoordinate2D(latitude: coord.latitude, longitude: coord.longitude), numPoints: 1500.0), //StadiumLot
+            (location: CLLocationCoordinate2D(latitude: coord.latitude, longitude: coord.longitude), numPoints: 1500.0),
             (location: CLLocationCoordinate2D(latitude: coord.latitude + 0.00017, longitude: coord.longitude + 0.0108), numPoints: 100.0),
         ]
     }
