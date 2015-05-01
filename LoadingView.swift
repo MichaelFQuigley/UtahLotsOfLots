@@ -46,7 +46,7 @@ class LoadingView: UIView {
             frame.height / 6.0))
         _loadingLabel?.textAlignment = NSTextAlignment.Center
         _loadingLabel?.text          = "Loading..."
-        
+        _loadingLabel?.font          = UIFont(name: AppUtil.themeFont, size: 24.0)
         cursor.y += _loadingLabel!.frame.height
         
         var wheelDim: CGFloat = max(frame.height / 6.0, frame.width / 6.0)

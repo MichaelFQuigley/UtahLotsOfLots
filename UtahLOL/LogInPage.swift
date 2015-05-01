@@ -18,6 +18,8 @@ class LogInPage: UIViewController, UITextFieldDelegate, SignUpPageDelegate {
     private var _userNameField: UITextField?
     private var _passNameField: UITextField?
     private var _loadingView: LoadingView?
+    private var _utahLOLLabel: UILabel?
+    private var _blurredLotsView: BlurredLotsView?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,6 +30,8 @@ class LogInPage: UIViewController, UITextFieldDelegate, SignUpPageDelegate {
         let vMargin:      CGFloat = self.view.frame.height / 32.0
         let hMargin:      CGFloat = self.view.frame.width  / 32.0
         
+        _blurredLotsView = BlurredLotsView(frame: view.frame, style: UIBlurEffectStyle.Dark)
+        
         _loadingView = LoadingView(frame: view.frame)
         _loadingView?.hidden = true
         
@@ -37,12 +41,23 @@ class LogInPage: UIViewController, UITextFieldDelegate, SignUpPageDelegate {
         var cursor: CGPoint      = CGPointMake(_scrollView!.frame.origin.x,
             _scrollView!.frame.origin.y + _scrollView!.frame.height / 6.0)
         
+        _utahLOLLabel = UILabel(frame: CGRectMake(cursor.x,
+            cursor.y,
+            self._scrollView!.frame.width,
+            fieldHeight))
+        _utahLOLLabel?.text          = "Lots of Lots"
+        _utahLOLLabel?.textAlignment = NSTextAlignment.Center
+        _utahLOLLabel?.font          = UIFont(name: AppUtil.themeFont, size: 28.0)
+        _utahLOLLabel?.textColor     = AppUtil.themeColor
+        cursor.y += _utahLOLLabel!.frame.height + vMargin
+        
         _logInLabel = UILabel(frame: CGRectMake(cursor.x,
             cursor.y,
             self._scrollView!.frame.width,
             fieldHeight))
         _logInLabel?.text          = "Log In"
         _logInLabel?.textAlignment = NSTextAlignment.Center
+        _logInLabel?.font           = UIFont(name: AppUtil.themeFont, size: 24.0)
         cursor.y += _logInLabel!.frame.height + vMargin
         
         _userNameField = UITextField(frame: CGRectMake(cursor.x + hMargin,
@@ -87,7 +102,8 @@ class LogInPage: UIViewController, UITextFieldDelegate, SignUpPageDelegate {
         _signUpButton?.layer.cornerRadius = 12.0
         _signUpButton?.addTarget(self, action: "signUpButtonPressed", forControlEvents: UIControlEvents.TouchDown)
         
-        
+        view.addSubview(_blurredLotsView!)
+        _scrollView?.addSubview(_utahLOLLabel!)
         _scrollView?.addSubview(_logInLabel!)
         _scrollView?.addSubview(_userNameField!)
         _scrollView?.addSubview(_passNameField!)
@@ -98,7 +114,7 @@ class LogInPage: UIViewController, UITextFieldDelegate, SignUpPageDelegate {
         
         if (PFUser.currentUser() != nil)
         {
-            self.navigationController?.pushViewController(LOLHomeViewController(), animated: true)
+            self.navigationController?.pushViewController(LOLHomeViewController(), animated: false)
         }
     }
     

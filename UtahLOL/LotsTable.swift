@@ -23,6 +23,9 @@ class LotsTable: UIViewController, UITableViewDelegate, UITableViewDataSource {
     private var _lastUpdatedTime: Double = 0.0
     var titleString: String = ""
     
+    private var _refreshTimer: NSTimer?
+    private var _refreshTimerInterval_sec: Double = 60.0
+    
     init(primaryLotType: LotData.PrimaryLotTag, secondaryLotType: LotData.SecondaryButtonTag, locationTracker: LocationTracker, cellColor: UIColor)
     {
         super.init()
@@ -75,25 +78,29 @@ class LotsTable: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     
     
-    override func viewDidLoad() {
+    func refreshLots()
+    {
+        showLoadingView(true)
+        loadLots()
+    }
+    
+    
+    
+    func startRefreshTimer()
+    {
+        self._refreshTimer = NSTimer(timeInterval: self._refreshTimerInterval_sec,
+            target: self,
+            selector: "refreshLots",
+            userInfo: nil,
+            repeats: true)
         
-        self.edgesForExtendedLayout = UIRectEdge.None
-        
-        self.view.backgroundColor = AppUtil.themeColor
-        
-        _loadingView = LoadingView(frame: view.frame)
-        
-        _lotsTableView = UITableView(frame: view.frame)
-        _lotsTableView?.separatorStyle  = UITableViewCellSeparatorStyle.None
-        _lotsTableView?.delegate        = self
-        _lotsTableView?.dataSource      = self
-        _lotsTableView?.backgroundColor = AppUtil.themeColor
-        
-        self.showLoadingView(true)
-        
-        view.addSubview(_loadingView!)
-        view.addSubview(_lotsTableView!)
-        
+        NSRunLoop.currentRunLoop().addTimer(self._refreshTimer!, forMode: NSDefaultRunLoopMode)
+    }
+    
+    
+    
+    func loadLots()
+    {
         if _secondaryLotType == LotData.SecondaryButtonTag.AnyButton
         {
             LotsManager.getAllLotsOfType(_primaryLotType!, offset: _currOffset, number: _lotsLimit) { (lots) -> Void in
@@ -131,6 +138,34 @@ class LotsTable: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     
     
+    override func viewDidLoad() {
+        
+        self.edgesForExtendedLayout = UIRectEdge.None
+        
+        self.view.backgroundColor = AppUtil.themeColor
+        
+        _loadingView = LoadingView(frame: view.frame)
+        var lotsFrame : CGRect = CGRectMake(view.frame.origin.x,
+            view.frame.origin.y,
+            view.frame.width,
+            view.frame.height - self.navigationController!.navigationBar.frame.size.height - 20.0)
+        _lotsTableView = UITableView(frame: lotsFrame)
+        _lotsTableView?.separatorStyle  = UITableViewCellSeparatorStyle.None
+        _lotsTableView?.delegate        = self
+        _lotsTableView?.dataSource      = self
+        _lotsTableView?.backgroundColor = AppUtil.themeColor
+        
+        self.showLoadingView(true)
+        
+        view.addSubview(_loadingView!)
+        view.addSubview(_lotsTableView!)
+        
+        loadLots()
+        startRefreshTimer()
+    }
+    
+    
+    
     func showLoadingView(yes: Bool)
     {
         if yes
@@ -152,10 +187,11 @@ class LotsTable: UIViewController, UITableViewDelegate, UITableViewDataSource {
         
         var titleLabel = AppUtil.getThemeTitleLabelWithWidth(self.view.frame.width)
         titleLabel.text = titleString
+        titleLabel.sizeToFit()
         self.navigationItem.titleView = titleLabel
     }
     
-    
+
     
     //tableView delegates
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -198,7 +234,14 @@ class LotsTable: UIViewController, UITableViewDelegate, UITableViewDataSource {
         return _lots.count
     }
     
+    
+    
     override func viewWillDisappear(animated: Bool) {
         self.navigationController?.setNavigationBarHidden(true, animated: true)
+    
+        if self.isMovingFromParentViewController() || self.isBeingDismissed()
+        {
+            self._refreshTimer?.invalidate()
+        }
     }
 }

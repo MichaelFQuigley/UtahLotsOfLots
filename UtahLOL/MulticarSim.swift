@@ -171,14 +171,15 @@ class MulticarSim: NSObject{
     
     func generateLotArrays()
     {
-        var shouldVisit: Bool = false
+        var shouldVisit: Bool!
         
         for lot in _lots
         {
+            shouldVisit = (Int(arc4random_uniform(4))  % 2) == 0
+            
             locationStructs.append(LocationPathCreator.createLocPathStructFromCoord(lot.lotRegion.center,
                                                                                     shouldVisit: shouldVisit,
                                                                                     _timerInterval: _timerInterval))
-            shouldVisit = !shouldVisit
         }
     }
     
@@ -199,5 +200,12 @@ class MulticarSim: NSObject{
             
             NSRunLoop.currentRunLoop().addTimer(self._updateTimer!, forMode: NSDefaultRunLoopMode)
         }
+    }
+    
+    
+    
+    func stopSim()
+    {
+        _updateTimer.invalidate()
     }
 }

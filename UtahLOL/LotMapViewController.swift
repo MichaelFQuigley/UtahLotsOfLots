@@ -34,6 +34,8 @@ class LotMapViewController: UIViewController, MKMapViewDelegate, MulticarSimDele
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
     
+    
+    
     override func viewDidLoad() {
         _mapView = MKMapView(frame: self.view.frame)
         _mapView?.delegate          = self
@@ -41,18 +43,23 @@ class LotMapViewController: UIViewController, MKMapViewDelegate, MulticarSimDele
 
         var region = MKCoordinateRegion(center: _lot!.lotRegion.center, span: MKCoordinateSpanMake(0.01, 0.01))
         _mapView?.setRegion(region, animated: false)
+
+        if _lot!.mapPolygon != nil
+        {
+            var annotation = _lot!.mapPolygon!
+            annotation.title    = _lot?.name
+            annotation.subtitle = _lot?.address
+            
+            _mapView?.addAnnotation(annotation)
+            _mapView?.selectAnnotation(annotation, animated: false)
+            _mapView?.addOverlay(annotation)
+        }
         
-        var annotation = MKPointAnnotation()
-        annotation.setCoordinate(_lot!.lotRegion.center)
-        annotation.title    = _lot?.name
-        annotation.subtitle = _lot?.address
-        
-        _mapView?.addAnnotation(_lot!)
         view.addSubview(_mapView!)
-        
         _multiCarSim = MulticarSim()
         _multiCarSim?.delegate = self
     }
+    
     
     
     override func viewDidAppear(animated: Bool) {
@@ -60,8 +67,16 @@ class LotMapViewController: UIViewController, MKMapViewDelegate, MulticarSimDele
         
         var titleLabel = AppUtil.getThemeTitleLabelWithWidth(self.view.frame.width)
         titleLabel.text = _lot!.name
+        titleLabel.sizeToFit()
         self.navigationItem.titleView = titleLabel
     }
+    
+    
+    
+    override func viewDidDisappear(animated: Bool) {
+        _multiCarSim?.stopSim()
+    }
+    
     
     
     func simulatorAnnotationsFromLocs(locs: [CLLocationCoordinate2D]) -> [MKPointAnnotation]
@@ -96,49 +111,53 @@ class LotMapViewController: UIViewController, MKMapViewDelegate, MulticarSimDele
         {
             _simMapnnotations?[i].setCoordinate(locs[i])
         }
+    }
+    
+    
+    
+    func lotOverlayColor(lot: LotData) -> UIColor
+    {
+        var trafficLevelStr = lot.getTrafficLevelStr(NSDate().timeIntervalSince1970)
         
+        if trafficLevelStr == "Empty"
+        {
+            return UIColor.greenColor()
+        }
+        else if trafficLevelStr == "Moderate"
+        {
+            return UIColor.yellowColor()
+        }
+        else if trafficLevelStr == "Busy"
+        {
+            return UIColor.orangeColor()
+        }
+        else if trafficLevelStr == "Packed"
+        {
+            return UIColor.redColor()
+        }
+        else
+        {
+            return UIColor.grayColor()
+        }
     }
     
     
     
     func mapView(mapView: MKMapView!, viewForAnnotation annotation: MKAnnotation!) -> MKAnnotationView! {
-        
+
         var annotView = MKAnnotationView(annotation: annotation, reuseIdentifier: "abc")
         
         if annotation.title == "car"
         {
             annotView.image = ImageUtil.imageWithName("carIcon-256.png", size: CGSizeMake(40.0, 40.0))
+            annotView.canShowCallout = true
         }
         else if annotation.isKindOfClass(MKUserLocation)
         {
             return nil
         }
-        else if annotation.isKindOfClass(LotData)
+        else if annotation.isKindOfClass(MKPolygon)
         {
-            annotView.frame = CGRectMake(0, 0, 50, 50)
-            
-            var trafficLevelStr = _lot?.getTrafficLevelStr(NSDate().timeIntervalSince1970)
-
-            if trafficLevelStr == "Empty"
-            {
-                annotView.backgroundColor = UIColor.greenColor()
-            }
-            else if trafficLevelStr == "Moderate"
-            {
-                annotView.backgroundColor = UIColor.yellowColor()
-            }
-            else if trafficLevelStr == "Busy"
-            {
-                annotView.backgroundColor = UIColor.orangeColor()
-            }
-            else if trafficLevelStr == "Packed"
-            {
-                annotView.backgroundColor = UIColor.redColor()
-            }
-            else
-            {
-                annotView.backgroundColor = UIColor.grayColor()
-            }
             annotView.canShowCallout = true
         }
         else
@@ -150,4 +169,30 @@ class LotMapViewController: UIViewController, MKMapViewDelegate, MulticarSimDele
     }
     
     
+    
+    func mapView(mapView: MKMapView!, viewForOverlay overlay: MKOverlay!) -> MKOverlayView! {
+        
+        if let polygon : MKPolygon? =  overlay as? MKPolygon
+        {
+            var polyView = MKPolygonView(overlay: polygon!)
+            
+            return polyView
+        }
+        
+        return nil
+    }
+    
+    
+    
+    func mapView(mapView: MKMapView!, rendererForOverlay overlay: MKOverlay!) -> MKOverlayRenderer! {
+        
+    if overlay is MKPolygon
+    {
+        var polyRenderer = MKPolygonRenderer(overlay: overlay)
+        polyRenderer.fillColor = lotOverlayColor(_lot!)
+        return polyRenderer
+    }
+    
+    return nil
+    }
 }

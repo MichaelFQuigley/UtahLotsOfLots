@@ -22,6 +22,9 @@ class LotData: NSObject, MKAnnotation {
     var lotRegion: CLCircularRegion = CLCircularRegion(center: CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0),
                                                         radius: 0.0,
                                                         identifier: "")
+    var mapPolygon: MKPolygon? = nil
+    var polyCoords: [CLLocationCoordinate2D] = []
+    
     enum PrimaryLotTag: Int
     {
         case aLot = 1, eLot = 2, allLot = 4, uLot = 8

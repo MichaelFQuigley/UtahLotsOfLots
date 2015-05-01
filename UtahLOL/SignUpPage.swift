@@ -30,6 +30,7 @@ class SignUpPage: UIViewController, UITextFieldDelegate {
     private var _emailField: UITextField?
     private var _cancelButton: UIButton?
     private var _loadingView: LoadingView?
+    private var _blurredLotsView: BlurredLotsView?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,6 +40,8 @@ class SignUpPage: UIViewController, UITextFieldDelegate {
         let fieldHeight:  CGFloat = self.view.frame.height / 12.0
         let vMargin:      CGFloat = self.view.frame.height / 32.0
         let hMargin:      CGFloat = self.view.frame.width  / 32.0
+        
+        _blurredLotsView = BlurredLotsView(frame: view.frame, style: UIBlurEffectStyle.Dark)
         
         _loadingView = LoadingView(frame: view.frame)
         _loadingView?.hidden = true
@@ -55,6 +58,7 @@ class SignUpPage: UIViewController, UITextFieldDelegate {
             fieldHeight))
         _signUpLabel?.text          = "Sign Up"
         _signUpLabel?.textAlignment = NSTextAlignment.Center
+        _signUpLabel?.font          = UIFont(name: AppUtil.themeFont, size: 24.0)
         cursor.y += _signUpLabel!.frame.height + vMargin
         
         _userNameField = UITextField(frame: CGRectMake(cursor.x + hMargin,
@@ -110,6 +114,7 @@ class SignUpPage: UIViewController, UITextFieldDelegate {
         _cancelButton?.layer.cornerRadius = 12.0
         _cancelButton?.addTarget(self, action: "cancelButtonPressed", forControlEvents: UIControlEvents.TouchDown)
         
+        view.addSubview(_blurredLotsView!)
         _scrollView?.addSubview(_signUpLabel!)
         _scrollView?.addSubview(_userNameField!)
         _scrollView?.addSubview(_emailField!)

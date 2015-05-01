@@ -8,6 +8,7 @@
 
 import UIKit
 import Parse
+import MapKit
 
 class LotsManager: NSObject {
     
@@ -27,6 +28,7 @@ class LotsManager: NSObject {
         case Location    = "Location"
         //GeoRegion has format {"coords": [lat, long], "radius": radius}
         case GeoRegion   = "GeoRegion"
+        case MapPolygon  = "MapPolygon"
     }
     
     
@@ -63,6 +65,17 @@ class LotsManager: NSObject {
                                                 identifier: obj.objectId)
         }
         
+        if let mapPolyArr: NSArray = obj[LotsClassFields.MapPolygon.rawValue] as? NSArray
+        {
+           // var coordinates: [CLLocationCoordinate2D] = []
+            
+            for coord in mapPolyArr
+            {
+                tempLot.polyCoords.append(CLLocationCoordinate2D(latitude: coord[0] as Double, longitude: coord[1] as Double))
+            }
+            tempLot.mapPolygon = MKPolygon(coordinates: &tempLot.polyCoords, count: tempLot.polyCoords.count)
+        }
+        
         return tempLot
     }
     
@@ -93,7 +106,7 @@ class LotsManager: NSObject {
             lotsQuery!.limit = number
         }
         
-        lotsQuery = filterLotQueryOnType(type, query: lotsQuery)
+       // lotsQuery = filterLotQueryOnType(type, query: lotsQuery)
         
         var geoPoint: PFGeoPoint = PFGeoPoint(location: location)
         
@@ -107,7 +120,26 @@ class LotsManager: NSObject {
                 {
                     for object in objects
                     {
-                        lotsList.append(self.lotDataFromPFObject(object))
+                        //must filter by type manually since extra contraints with a geoPoint query does not appear to be supported
+                        if type == LotData.PrimaryLotTag.allLot
+                        {
+                            lotsList.append(self.lotDataFromPFObject(object))
+                        }
+                        else if type == LotData.PrimaryLotTag.eLot
+                            && object.objectForKey(LotsClassFields.IsELot.rawValue) as Bool == true
+                        {
+                            lotsList.append(self.lotDataFromPFObject(object))
+                        }
+                        else if type == LotData.PrimaryLotTag.aLot
+                            && object.objectForKey(LotsClassFields.IsALot.rawValue) as Bool == true
+                        {
+                            lotsList.append(self.lotDataFromPFObject(object))
+                        }
+                        else if type == LotData.PrimaryLotTag.uLot
+                            && object.objectForKey(LotsClassFields.IsULot.rawValue) as Bool == true
+                        {
+                            lotsList.append(self.lotDataFromPFObject(object))
+                        }
                     }
                 }
                 

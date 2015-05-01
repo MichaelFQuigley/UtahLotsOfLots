@@ -23,10 +23,10 @@
 		4E6F0EA71AE6220B00A3C2FA /* LocationPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E6F0EA61AE6220A00A3C2FA /* LocationPath.swift */; };
 		4E6F0EA91AE6229700A3C2FA /* LocationPathCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E6F0EA81AE6229700A3C2FA /* LocationPathCreator.swift */; };
 		4E6F0EAC1AE63EF000A3C2FA /* carIcon-256.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E6F0EAB1AE63EF000A3C2FA /* carIcon-256.png */; };
+		4E6F0EAE1AE7497800A3C2FA /* lotsImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E6F0EAD1AE7497800A3C2FA /* lotsImage.png */; };
+		4E6F0EB01AE74AEE00A3C2FA /* BlurredLotsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E6F0EAF1AE74AEE00A3C2FA /* BlurredLotsView.swift */; };
 		4EBA53FD1ADD0F6B0020A8B8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBA53FC1ADD0F6B0020A8B8 /* AppDelegate.swift */; };
-		4EBA54021ADD0F6B0020A8B8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4EBA54001ADD0F6B0020A8B8 /* Main.storyboard */; };
 		4EBA54041ADD0F6B0020A8B8 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4EBA54031ADD0F6B0020A8B8 /* Images.xcassets */; };
-		4EBA54071ADD0F6B0020A8B8 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4EBA54051ADD0F6B0020A8B8 /* LaunchScreen.xib */; };
 		4EBA54131ADD0F6B0020A8B8 /* UtahLOLTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBA54121ADD0F6B0020A8B8 /* UtahLOLTests.swift */; };
 		4EBA541D1ADD10A80020A8B8 /* ImageUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBA541C1ADD10A80020A8B8 /* ImageUtil.swift */; };
 		4EBA541F1ADD11320020A8B8 /* DropDownMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBA541E1ADD11320020A8B8 /* DropDownMenuView.swift */; };
@@ -55,7 +55,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		4E6F0E831ADDA29A00A3C2FA /* LoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
+		4E6F0E831ADDA29A00A3C2FA /* LoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoadingView.swift; path = ../LoadingView.swift; sourceTree = "<group>"; };
 		4E6F0E851ADDA2CA00A3C2FA /* ParseCrashReporting.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ParseCrashReporting.framework; path = Frameworks/ParseCrashReporting.framework; sourceTree = "<group>"; };
 		4E6F0E871ADDA38000A3C2FA /* ParseFacebookUtils.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ParseFacebookUtils.framework; path = Frameworks/ParseFacebookUtils.framework; sourceTree = "<group>"; };
 		4E6F0E881ADDA38000A3C2FA /* ParseFacebookUtilsV4.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ParseFacebookUtilsV4.framework; path = Frameworks/ParseFacebookUtilsV4.framework; sourceTree = "<group>"; };
@@ -71,12 +71,12 @@
 		4E6F0EA61AE6220A00A3C2FA /* LocationPath.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationPath.swift; sourceTree = "<group>"; };
 		4E6F0EA81AE6229700A3C2FA /* LocationPathCreator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationPathCreator.swift; sourceTree = "<group>"; };
 		4E6F0EAB1AE63EF000A3C2FA /* carIcon-256.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "carIcon-256.png"; path = "images/carIcon-256.png"; sourceTree = SOURCE_ROOT; };
+		4E6F0EAD1AE7497800A3C2FA /* lotsImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = lotsImage.png; path = images/lotsImage.png; sourceTree = SOURCE_ROOT; };
+		4E6F0EAF1AE74AEE00A3C2FA /* BlurredLotsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlurredLotsView.swift; sourceTree = "<group>"; };
 		4EBA53F71ADD0F6B0020A8B8 /* UtahLOL.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UtahLOL.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4EBA53FB1ADD0F6B0020A8B8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4EBA53FC1ADD0F6B0020A8B8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		4EBA54011ADD0F6B0020A8B8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		4EBA54031ADD0F6B0020A8B8 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		4EBA54061ADD0F6B0020A8B8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		4EBA540C1ADD0F6B0020A8B8 /* UtahLOLTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UtahLOLTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4EBA54111ADD0F6B0020A8B8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4EBA54121ADD0F6B0020A8B8 /* UtahLOLTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtahLOLTests.swift; sourceTree = "<group>"; };
@@ -163,9 +163,13 @@
 		4E6F0E9E1AE49F3100A3C2FA /* Util */ = {
 			isa = PBXGroup;
 			children = (
+				4E6F0E931ADE44A400A3C2FA /* LocationTracker.swift */,
+				4EBA53FC1ADD0F6B0020A8B8 /* AppDelegate.swift */,
+				4E6F0E831ADDA29A00A3C2FA /* LoadingView.swift */,
 				4E6F0E951ADF448E00A3C2FA /* VelocityQueue.swift */,
 				4E6F0E911ADE0A2C00A3C2FA /* AppUtil.swift */,
 				4EBA541C1ADD10A80020A8B8 /* ImageUtil.swift */,
+				4E6F0EAF1AE74AEE00A3C2FA /* BlurredLotsView.swift */,
 			);
 			name = Util;
 			sourceTree = "<group>";
@@ -192,9 +196,18 @@
 		4E6F0EAA1AE63EDE00A3C2FA /* images */ = {
 			isa = PBXGroup;
 			children = (
+				4E6F0EAD1AE7497800A3C2FA /* lotsImage.png */,
 				4E6F0EAB1AE63EF000A3C2FA /* carIcon-256.png */,
 			);
 			name = images;
+			sourceTree = "<group>";
+		};
+		4EAEA9F61AEEFC480083226D /* UserModel */ = {
+			isa = PBXGroup;
+			children = (
+				4EBA542A1ADD137A0020A8B8 /* UserModel.swift */,
+			);
+			name = UserModel;
 			sourceTree = "<group>";
 		};
 		4EBA53EE1ADD0F6A0020A8B8 = {
@@ -206,7 +219,6 @@
 				4E6F0E871ADDA38000A3C2FA /* ParseFacebookUtils.framework */,
 				4E6F0E881ADDA38000A3C2FA /* ParseFacebookUtilsV4.framework */,
 				4E6F0E851ADDA2CA00A3C2FA /* ParseCrashReporting.framework */,
-				4E6F0E831ADDA29A00A3C2FA /* LoadingView.swift */,
 				4EBA54361ADDA0E40020A8B8 /* libsqlite3.dylib */,
 				4EBA54301ADDA0BC0020A8B8 /* Bolts.framework */,
 				4EBA54311ADDA0BC0020A8B8 /* Parse.framework */,
@@ -231,12 +243,7 @@
 			children = (
 				4E6F0EAA1AE63EDE00A3C2FA /* images */,
 				4EBA53FA1ADD0F6B0020A8B8 /* Supporting Files */,
-				4EBA53FC1ADD0F6B0020A8B8 /* AppDelegate.swift */,
-				4EBA54001ADD0F6B0020A8B8 /* Main.storyboard */,
 				4EBA54031ADD0F6B0020A8B8 /* Images.xcassets */,
-				4EBA54051ADD0F6B0020A8B8 /* LaunchScreen.xib */,
-				4EBA542A1ADD137A0020A8B8 /* UserModel.swift */,
-				4E6F0E931ADE44A400A3C2FA /* LocationTracker.swift */,
 			);
 			path = UtahLOL;
 			sourceTree = "<group>";
@@ -244,6 +251,7 @@
 		4EBA53FA1ADD0F6B0020A8B8 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				4EAEA9F61AEEFC480083226D /* UserModel */,
 				4E6F0EA31AE5FC1700A3C2FA /* Simulators */,
 				4E6F0EA11AE4CD1800A3C2FA /* LotMap */,
 				4E6F0E9E1AE49F3100A3C2FA /* Util */,
@@ -358,10 +366,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4EBA54021ADD0F6B0020A8B8 /* Main.storyboard in Resources */,
-				4EBA54071ADD0F6B0020A8B8 /* LaunchScreen.xib in Resources */,
 				4EBA54041ADD0F6B0020A8B8 /* Images.xcassets in Resources */,
 				4E6F0EAC1AE63EF000A3C2FA /* carIcon-256.png in Resources */,
+				4E6F0EAE1AE7497800A3C2FA /* lotsImage.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -387,6 +394,7 @@
 				4E6F0EA01AE4CD0C00A3C2FA /* LotMapViewController.swift in Sources */,
 				4E6F0EA91AE6229700A3C2FA /* LocationPathCreator.swift in Sources */,
 				4E6F0E961ADF448E00A3C2FA /* VelocityQueue.swift in Sources */,
+				4E6F0EB01AE74AEE00A3C2FA /* BlurredLotsView.swift in Sources */,
 				4EBA54211ADD12220020A8B8 /* SignUpPage.swift in Sources */,
 				4EBA541F1ADD11320020A8B8 /* DropDownMenuView.swift in Sources */,
 				4EBA53FD1ADD0F6B0020A8B8 /* AppDelegate.swift in Sources */,
@@ -419,25 +427,6 @@
 			targetProxy = 4EBA540D1ADD0F6B0020A8B8 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
-
-/* Begin PBXVariantGroup section */
-		4EBA54001ADD0F6B0020A8B8 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				4EBA54011ADD0F6B0020A8B8 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		4EBA54051ADD0F6B0020A8B8 /* LaunchScreen.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				4EBA54061ADD0F6B0020A8B8 /* Base */,
-			);
-			name = LaunchScreen.xib;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		4EBA54141ADD0F6B0020A8B8 /* Debug */ = {

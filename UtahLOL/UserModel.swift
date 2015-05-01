@@ -20,7 +20,7 @@ class UserModel: NSObject {
     }
     
     var userEmail: String!
-        {
+    {
             return PFUser.currentUser().email
     }
     

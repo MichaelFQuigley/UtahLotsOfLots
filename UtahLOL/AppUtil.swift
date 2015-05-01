@@ -10,7 +10,7 @@ import UIKit
 
 class AppUtil: NSObject {
     class var themeFont: String{
-        return "ChalkboardSE-Regular"
+        return "Cochin"
     }
     
     class var themeColor: UIColor

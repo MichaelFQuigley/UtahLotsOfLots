@@ -20,9 +20,15 @@ class LOLHomeViewController: UIViewController, DropDownMenuViewDelegate, Locatio
     private var vMargin: CGFloat = 0.0
     private var secondaryButtonHeight: CGFloat = 0.0
     private var primaryButtonHeight: CGFloat   = 0.0
+    private var _backGroundImageView: BlurredLotsView?
+    
     
     override func viewDidLoad() {
 
+        navigationController?.navigationBar.backgroundColor = AppUtil.themeColor
+        
+        _backGroundImageView = BlurredLotsView(frame: view.frame, style: UIBlurEffectStyle.Dark)
+        
         locationTracker = LocationTracker()
         locationTracker?.delegate = self
         view.backgroundColor = AppUtil.themeColor
@@ -31,7 +37,8 @@ class LOLHomeViewController: UIViewController, DropDownMenuViewDelegate, Locatio
         secondaryButtonHeight = self.view.frame.height / 16.0
         
         
-        var cursor: CGPoint = CGPointMake(view.frame.origin.x, view.frame.origin.y + self.view.frame.height / 8.0)
+        var cursor: CGPoint = CGPointMake(view.frame.origin.x,
+            view.frame.origin.y + navigationController!.navigationBar.frame.height + 20.0 + vMargin)//+ self.view.frame.height / 8.0 + 20.0)
         
         var allLotsFrame = CGRectMake(cursor.x, cursor.y, self.view.frame.width, primaryButtonHeight)
         
@@ -130,6 +137,7 @@ class LOLHomeViewController: UIViewController, DropDownMenuViewDelegate, Locatio
                                                         blue: uLotsBlueComp + colorDifference,
                                                         alpha: 1.0)
         
+        view.addSubview(_backGroundImageView!)
         view.addSubview(_allLotsElement!)
         view.addSubview(_aLotsElement!)
         view.addSubview(_eLotsElement!)
@@ -140,7 +148,8 @@ class LOLHomeViewController: UIViewController, DropDownMenuViewDelegate, Locatio
     
     func setButtonFramesAfterMenusChanged()
     {
-        var cursor: CGPoint = CGPointMake(view.frame.origin.x, view.frame.origin.y + self.view.frame.height / 8.0)
+        var cursor: CGPoint = CGPointMake(view.frame.origin.x,
+                                        view.frame.origin.y + navigationController!.navigationBar.frame.height + 20.0 + vMargin)
         
         var allLotsFrame = CGRectMake(cursor.x, cursor.y, _allLotsElement!.frame.width, _allLotsElement!.frame.height)
         
